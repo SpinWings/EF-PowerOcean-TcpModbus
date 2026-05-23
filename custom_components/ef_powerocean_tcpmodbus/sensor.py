@@ -164,7 +164,8 @@ SENSORS: list[EcoflowSensorDescription] = [
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
         entity_category=EntityCategory.DIAGNOSTIC,
-    ),
+        icon="mdi:brightness-percent",
+),
     # ── Solar ─────────────────────────────────────────────────────────────────
     EcoflowSensorDescription(
         key="solar_power",
