@@ -159,10 +159,9 @@ SENSORS: list[EcoflowSensorDescription] = [
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     EcoflowSensorDescription(
-        key="bat_temp_warn_min",
-        name="Battery Temp Warning Min",
-        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-        device_class=SensorDeviceClass.TEMPERATURE,
+        key="ctrl_led_brightness",
+        name="Control LED Brightness",
+        native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
         entity_category=EntityCategory.DIAGNOSTIC,
     ),

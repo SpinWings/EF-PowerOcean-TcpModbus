@@ -185,7 +185,7 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                 data["inverter_ac_power"] = float(b[11])  # 40530 – INT16, W ✅
                 data["min_soc_limit"] = float(b[17])  # 40536 – INT16, % ✅
                 data["bat_temp_warn_max"] = float(b[21])  # 40540 – INT16, °C ✅
-                data["bat_temp_warn_min"] = float(b[22])  # 40541 – INT16, °C ✅
+                data["ctrl_led_brightness"] = int(b[22])  # 40541 – INT16, % ✅
                 data["limit_inv_power"] = float(b[27])  # 40546 – INT16, W ✅
                 data["limit_inv_max"] = float(b[29])  # 40548 – INT16, W ✅
                 # 40550 / 40552 – unreliable, calculated from module count instead
@@ -236,9 +236,9 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                 data["pv3_power"] = round(data["pv3_current"] * (data["pv3_voltage"] or 0.0), 1)
 
                 # Solar power: sum of active strings only
-                data["solar_power"] = round(
-                    sum(data[f"pv{i}_power"] for i in range(1, self._pv_strings + 1)), 1
-                )
+                #data["solar_power"] = round(
+                #    sum(data[f"pv{i}_power"] for i in range(1, self._pv_strings + 1)), 1
+                #)
 
                 # Grid power: if register 40521 gave None, derive from energy balance as fallback
                 if data.get("grid_power", None) is None:
@@ -254,7 +254,7 @@ class EcoflowCoordinator(DataUpdateCoordinator):
             # ── Block F: Battery Moduls (42081, 4 regs) ────────────────────────
             await asyncio.sleep(SLEEP_TIME_AFTER_READ_BLOCK)
             if f := await self._read_block(_REG_BAT_MODULS, 4):
-                data["battery_count"] = int(f[0])  # 42081 – INT16,
+                data["battery_count"] = int(f[0])   # 42081 – INT16,
                 data["battery1_soc"] = float(f[1])  # 42082 – INT16, %
                 data["battery2_soc"] = float(f[2])  # 42083 – INT16, %
                 data["battery3_soc"] = float(f[3])  # 42084 – INT16, %
