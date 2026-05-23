@@ -41,8 +41,8 @@ VALUE_PRICISION = {
     PERCENTAGE: 0,
     UnitOfPower.WATT: 0,
     UnitOfEnergy.KILO_WATT_HOUR: 2,
-    UnitOfTemperature.CELSIUS: 1,
-    UnitOfFrequency.HERTZ: 0,
+    UnitOfTemperature.CELSIUS: 0,
+    UnitOfFrequency.HERTZ: 2,
     UnitOfElectricPotential.VOLT: 1,
     UnitOfElectricCurrent.AMPERE: 2,
 }
