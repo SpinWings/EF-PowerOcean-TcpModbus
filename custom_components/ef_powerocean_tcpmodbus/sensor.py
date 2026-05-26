@@ -39,11 +39,11 @@ class EcoflowSensorDescription(SensorEntityDescription):
 
 VALUE_PRICISION = {
     PERCENTAGE: 0,
-    UnitOfPower.WATT: 0,
+    UnitOfPower.WATT: 2,
     UnitOfEnergy.KILO_WATT_HOUR: 2,
-    UnitOfTemperature.CELSIUS: 0,
+    UnitOfTemperature.CELSIUS: 2,
     UnitOfFrequency.HERTZ: 2,
-    UnitOfElectricPotential.VOLT: 1,
+    UnitOfElectricPotential.VOLT: 2,
     UnitOfElectricCurrent.AMPERE: 2,
 }
 

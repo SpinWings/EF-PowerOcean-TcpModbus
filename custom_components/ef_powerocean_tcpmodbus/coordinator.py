@@ -21,7 +21,7 @@ _LOGGER = logging.getLogger(__name__)
 # Block start addresses
 _REG_SERIAL = 40004  # Serial number + operation mode
 _REG_MAIN = 40519  # house_con, grid, solar, battery, soc, bat_cap, limits …
-_REG_BAT_DETAIL = 40574  # Battery voltage, current, temperature
+_REG_BAT_DETAIL = 40559  # Battery voltage, current, temperature and inverter currents/voltages
 _REG_AC_PV = 40580  # Grid voltages/currents, frequency, apparent power,
 # PV string voltages, inverter temp, PV string currents
 _REG_BAT_MODULS = 42081  # Battery Moduls count, soc
