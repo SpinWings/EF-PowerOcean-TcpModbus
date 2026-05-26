@@ -62,6 +62,14 @@ SENSORS: list[EcoflowSensorDescription] = [
         icon="mdi:cog",
     ),
     EcoflowSensorDescription(
+        key="ctrl_led_brightness",
+        name="Control LED Brightness",
+        native_unit_of_measurement=PERCENTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        icon="mdi:brightness-percent",
+    ),
+    EcoflowSensorDescription(
         key="battery_count",
         name="Battery Module Count",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -158,14 +166,6 @@ SENSORS: list[EcoflowSensorDescription] = [
         state_class=SensorStateClass.MEASUREMENT,
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
-    EcoflowSensorDescription(
-        key="ctrl_led_brightness",
-        name="Control LED Brightness",
-        native_unit_of_measurement=PERCENTAGE,
-        state_class=SensorStateClass.MEASUREMENT,
-        entity_category=EntityCategory.DIAGNOSTIC,
-        icon="mdi:brightness-percent",
-),
     # ── Solar ─────────────────────────────────────────────────────────────────
     EcoflowSensorDescription(
         key="solar_power",
@@ -268,7 +268,7 @@ SENSORS: list[EcoflowSensorDescription] = [
         state_class=SensorStateClass.MEASUREMENT,
     ),
     EcoflowSensorDescription(
-        key="voltage_l1",
+        key="grid_voltage_l1",
         name="Grid Voltage L1",
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
@@ -276,7 +276,7 @@ SENSORS: list[EcoflowSensorDescription] = [
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     EcoflowSensorDescription(
-        key="voltage_l2",
+        key="grid_voltage_l2",
         name="Grid Voltage L2",
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
@@ -284,7 +284,7 @@ SENSORS: list[EcoflowSensorDescription] = [
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     EcoflowSensorDescription(
-        key="voltage_l3",
+        key="grid_voltage_l3",
         name="Grid Voltage L3",
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
@@ -292,7 +292,7 @@ SENSORS: list[EcoflowSensorDescription] = [
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     EcoflowSensorDescription(
-        key="current_l1",
+        key="grid_current_l1",
         name="Grid Current L1",
         native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
         device_class=SensorDeviceClass.CURRENT,
@@ -300,7 +300,7 @@ SENSORS: list[EcoflowSensorDescription] = [
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     EcoflowSensorDescription(
-        key="current_l2",
+        key="grid_current_l2",
         name="Grid Current L2",
         native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
         device_class=SensorDeviceClass.CURRENT,
@@ -308,7 +308,7 @@ SENSORS: list[EcoflowSensorDescription] = [
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     EcoflowSensorDescription(
-        key="current_l3",
+        key="grid_current_l3",
         name="Grid Current L3",
         native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
         device_class=SensorDeviceClass.CURRENT,
@@ -333,7 +333,55 @@ SENSORS: list[EcoflowSensorDescription] = [
         state_class=SensorStateClass.MEASUREMENT,
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
-    # ── Power limits ─────────────────────────────────────────────────────────
+       EcoflowSensorDescription(
+        key="inverter_voltage_l1",
+        name="Inverter Voltage L1",
+        native_unit_of_measurement=UnitOfElectricPotential.VOLT,
+        device_class=SensorDeviceClass.VOLTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    EcoflowSensorDescription(
+        key="inverter_voltage_l2",
+        name="Inverter Voltage L2",
+        native_unit_of_measurement=UnitOfElectricPotential.VOLT,
+        device_class=SensorDeviceClass.VOLTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    EcoflowSensorDescription(
+        key="inverter_voltage_l3",
+        name="Inverter Voltage L3",
+        native_unit_of_measurement=UnitOfElectricPotential.VOLT,
+        device_class=SensorDeviceClass.VOLTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    EcoflowSensorDescription(
+        key="inverter_current_l1",
+        name="Inverter Current L1",
+        native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    EcoflowSensorDescription(
+        key="inverter_current_l2",
+        name="Inverter Current L2",
+        native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    EcoflowSensorDescription(
+        key="inverter_current_l3",
+        name="Inverter Current L3",
+        native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+# ── Power limits ─────────────────────────────────────────────────────────
     EcoflowSensorDescription(
         key="limit_inv_max",
         name="Inverter Nominal Power Limit",
