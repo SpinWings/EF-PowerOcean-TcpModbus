@@ -316,8 +316,8 @@ SENSORS: list[EcoflowSensorDescription] = [
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     EcoflowSensorDescription(
-        key="frequency",
-        name="Grid Frequency",
+        key="inverter_frequency",
+        name="Inverter Frequency",
         native_unit_of_measurement=UnitOfFrequency.HERTZ,
         device_class=SensorDeviceClass.FREQUENCY,
         state_class=SensorStateClass.MEASUREMENT,

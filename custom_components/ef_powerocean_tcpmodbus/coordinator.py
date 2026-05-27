@@ -196,12 +196,12 @@ class EcoflowCoordinator(DataUpdateCoordinator):
             # ── Block C: Inverter AC and Battery detail (40559, 21 regs) ───────────────────────────
             await asyncio.sleep(SLEEP_TIME_AFTER_READ_BLOCK)
             if c := await self._read_block(_REG_BAT_DETAIL, 21):
-                data["inverter_current_l1"] = self._f(c, 0)     # 40559
-                data["inverter_current_l2"] = self._f(c, 2)     # 40561
-                data["inverter_current_l3"] = self._f(c, 4)     # 40563
-                data["inverter_voltage_l1"] = self._f(c, 6)     # 40565
-                data["inverter_voltage_l2"] = self._f(c, 8)     # 40567
-                data["inverter_voltage_l3"] = self._f(c, 10)    # 40569
+                data["grid_current_l1"] = self._f(c, 0)     # 40559
+                data["grid_current_l2"] = self._f(c, 2)     # 40561
+                data["grid_current_l3"] = self._f(c, 4)     # 40563
+                data["grid_voltage_l1"] = self._f(c, 6)     # 40565
+                data["grid_voltage_l2"] = self._f(c, 8)     # 40567
+                data["grid_voltage_l3"] = self._f(c, 10)    # 40569
                                                                 # 40571-40573 no values assigned
                 data["battery_voltage"] = self._f(c, 15)        # 40574 ✅
                 data["battery_current"] = self._f(c, 17)        # 40576 ✅
@@ -210,14 +210,14 @@ class EcoflowCoordinator(DataUpdateCoordinator):
             # ── Block D: AC grid + PV strings (40580, 28 regs → up to 40607) ──────
             await asyncio.sleep(SLEEP_TIME_AFTER_READ_BLOCK)
             if d := await self._read_block(_REG_AC_PV, 28):
-                data["grid_voltage_l1"] = self._f(d, 0)   # 40580 ✅
-                data["grid_voltage_l2"] = self._f(d, 2)   # 40582 ✅
-                data["grid_voltage_l3"] = self._f(d, 4)   # 40584 ✅
-                data["grid_current_l1"] = self._f(d, 6)   # 40586 ✅
-                data["grid_current_l2"] = self._f(d, 8)   # 40588 ✅
-                data["grid_current_l3"] = self._f(d, 10)  # 40590 ✅
+                data["inverter_voltage_l1"] = self._f(d, 0)   # 40580 ✅
+                data["inverter_voltage_l2"] = self._f(d, 2)   # 40582 ✅
+                data["inverter_voltage_l3"] = self._f(d, 4)   # 40584 ✅
+                data["inverter_current_l1"] = self._f(d, 6)   # 40586 ✅
+                data["inverter_current_l2"] = self._f(d, 8)   # 40588 ✅
+                data["inverter_current_l3"] = self._f(d, 10)  # 40590 ✅
                 data["inverter_temperature"] = self._f(d, 12)  # 40592 ✅
-                data["frequency"] = self._f(d, 14)   # 40594 ✅
+                data["inverterfrequency"] = self._f(d, 14)   # 40594 ✅
                 # FIX: Register 40596–40601 sind PV-String-Spannungen, NICHT apparent_power
                 data["pv1_voltage"] = self._f(d, 16)  # 40596 ✅ (Community-Map bestätigt)
                 data["pv2_voltage"] = self._f(d, 18)  # 40598 ✅
