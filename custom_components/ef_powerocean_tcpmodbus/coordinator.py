@@ -182,7 +182,7 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                 data["bat_remaining"] = round(
                     self._battery_capacity * data["battery_soc"] / 100, 2
                 )
-                data["inverter_ac_power"] = float(b[11])  # 40530 – INT16, W ✅
+                #data["inverter_ac_power"] = float(b[11])  # 40530 – INT16, W ✅
                 data["min_soc_limit"] = float(b[17])  # 40536 – INT16, % ✅
                 data["bat_temp_warn_max"] = float(b[21])  # 40540 – INT16, °C ✅
                 data["ctrl_led_brightness"] = int(b[22])  # 40541 – INT16, % ✅
@@ -216,8 +216,14 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                 data["inverter_current_l1"] = self._f(d, 6)   # 40586 ✅
                 data["inverter_current_l2"] = self._f(d, 8)   # 40588 ✅
                 data["inverter_current_l3"] = self._f(d, 10)  # 40590 ✅
+                # derive inverter power per phase and total inverter power
+                data["inverter_power_l1"] = data["inverter_voltage_l1"] * data["inverter_current_l1"]
+                data["inverter_power_l2"] = data["inverter_voltage_l2"] * data["inverter_current_l2"]
+                data["inverter_power_l3"] = data["inverter_voltage_l3"] * data["inverter_current_l3"]
+                data["inverter_power"] = data["inverter_power_l1"] + data["inverter_power_l2"] + data["inverter_power_l3"]
+                #
                 data["inverter_temperature"] = self._f(d, 12)  # 40592 ✅
-                data["inverterfrequency"] = self._f(d, 14)   # 40594 ✅
+                data["inverter_frequency"] = self._f(d, 14)   # 40594 ✅
                 # FIX: Register 40596–40601 sind PV-String-Spannungen, NICHT apparent_power
                 data["pv1_voltage"] = self._f(d, 16)  # 40596 ✅ (Community-Map bestätigt)
                 data["pv2_voltage"] = self._f(d, 18)  # 40598 ✅
@@ -236,9 +242,9 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                 )  # 40606 ⚠️ not in verified list
 
                 # FIX: PV-Leistung pro String mit eigener Spannung berechnen
-                data["pv1_power"] = round(data["pv1_current"] * (data["pv1_voltage"] or 0.0), 1)
-                data["pv2_power"] = round(data["pv2_current"] * (data["pv2_voltage"] or 0.0), 1)
-                data["pv3_power"] = round(data["pv3_current"] * (data["pv3_voltage"] or 0.0), 1)
+                data["pv1_power"] = round(data["pv1_current"] * (data["pv1_voltage"] or 0.0), 2)
+                data["pv2_power"] = round(data["pv2_current"] * (data["pv2_voltage"] or 0.0), 2)
+                data["pv3_power"] = round(data["pv3_current"] * (data["pv3_voltage"] or 0.0), 2)
 
                 # Solar power: sum of active strings only
                 #data["solar_power"] = round(
@@ -246,15 +252,15 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                 #)
 
                 # Grid power: if register 40521 gave None, derive from energy balance as fallback
-                if data.get("grid_power", None) is None:
-                    house = data.get("house_power", 0)
-                    solar = data.get("solar_power", 0)
-                    bat = data.get("battery_power", 0)
-                    if any(v != 0 for v in [house, solar, bat]):
-                        data["grid_power"] = round(house - solar + bat, 1)
-                        _LOGGER.info(
-                            f"grid_power derived from balance: {data['grid_power']} W"
-                        )
+                # if data.get("grid_power", None) is None:
+                #     house = data.get("house_power", 0)
+                #     solar = data.get("solar_power", 0)
+                #     bat = data.get("battery_power", 0)
+                #     if any(v != 0 for v in [house, solar, bat]):
+                #         data["grid_power"] = round(house - solar + bat, 1)
+                #         _LOGGER.info(
+                #             f"grid_power derived from balance: {data['grid_power']} W"
+                #         )
 
             # ── Block F: Battery Moduls (42081, 4 regs) ────────────────────────
             await asyncio.sleep(SLEEP_TIME_AFTER_READ_BLOCK)
