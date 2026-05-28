@@ -202,6 +202,12 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                 data["grid_voltage_l1"] = self._f(c, 6)     # 40565
                 data["grid_voltage_l2"] = self._f(c, 8)     # 40567
                 data["grid_voltage_l3"] = self._f(c, 10)    # 40569
+                # derive grid apparent power per phase and total grid apparentpower
+                data["grid_apparentpower_l1"] = data["grid_voltage_l1"] * data["grid_current_l1"]
+                data["grid_apparentpower_l2"] = data["grid_voltage_l2"] * data["grid_current_l2"]
+                data["grid_apparentpower_l3"] = data["grid_voltage_l3"] * data["grid_current_l3"]
+                data["grid_apparentpower"] = data["grid_apparentpower_l1"] + data["grid_apparentpower_l2"] + data["grid_apparentpower_l3"]
+                #
                                                                 # 40571-40573 no values assigned
                 data["battery_voltage"] = self._f(c, 15)        # 40574 ✅
                 data["battery_current"] = self._f(c, 17)        # 40576 ✅
@@ -216,7 +222,7 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                 data["inverter_current_l1"] = self._f(d, 6)   # 40586 ✅
                 data["inverter_current_l2"] = self._f(d, 8)   # 40588 ✅
                 data["inverter_current_l3"] = self._f(d, 10)  # 40590 ✅
-                # derive inverter power per phase and total inverter power
+                # derive inverter apparent power per phase and total inverter apparent power
                 data["inverter_apparentpower_l1"] = data["inverter_voltage_l1"] * data["inverter_current_l1"]
                 data["inverter_apparentpower_l2"] = data["inverter_voltage_l2"] * data["inverter_current_l2"]
                 data["inverter_apparentpower_l3"] = data["inverter_voltage_l3"] * data["inverter_current_l3"]
