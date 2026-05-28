@@ -19,6 +19,7 @@ from homeassistant.const import (
     UnitOfEnergy,
     UnitOfFrequency,
     UnitOfPower,
+    UnitOfApparentPower,
     UnitOfTemperature,
 )
 from homeassistant.core import HomeAssistant, callback
@@ -40,6 +41,7 @@ class EcoflowSensorDescription(SensorEntityDescription):
 VALUE_PRICISION = {
     PERCENTAGE: 0,
     UnitOfPower.WATT: 2,
+    UnitOfApparentPower.VA: 2,
     UnitOfEnergy.KILO_WATT_HOUR: 2,
     UnitOfTemperature.CELSIUS: 2,
     UnitOfFrequency.HERTZ: 2,
