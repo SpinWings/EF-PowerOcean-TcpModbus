@@ -217,10 +217,10 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                 data["inverter_current_l2"] = self._f(d, 8)   # 40588 ✅
                 data["inverter_current_l3"] = self._f(d, 10)  # 40590 ✅
                 # derive inverter power per phase and total inverter power
-                data["inverter_power_l1"] = data["inverter_voltage_l1"] * data["inverter_current_l1"]
-                data["inverter_power_l2"] = data["inverter_voltage_l2"] * data["inverter_current_l2"]
-                data["inverter_power_l3"] = data["inverter_voltage_l3"] * data["inverter_current_l3"]
-                data["inverter_power"] = data["inverter_power_l1"] + data["inverter_power_l2"] + data["inverter_power_l3"]
+                data["inverter_apparentpower_l1"] = data["inverter_voltage_l1"] * data["inverter_current_l1"]
+                data["inverter_apparentpower_l2"] = data["inverter_voltage_l2"] * data["inverter_current_l2"]
+                data["inverter_apparentpower_l3"] = data["inverter_voltage_l3"] * data["inverter_current_l3"]
+                data["inverter_apparentpower"] = data["inverter_apparentpower_l1"] + data["inverter_apparentpower_l2"] + data["inverter_apparentpower_l3"]
                 #
                 data["inverter_temperature"] = self._f(d, 12)  # 40592 ✅
                 data["inverter_frequency"] = self._f(d, 14)   # 40594 ✅
