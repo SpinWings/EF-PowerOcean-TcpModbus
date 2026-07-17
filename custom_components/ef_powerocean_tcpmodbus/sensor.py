@@ -160,6 +160,12 @@ SENSORS: list[EcoflowSensorDescription] = [
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:battery-arrow-down",
     ),
+  EcoflowSensorDescription(
+        key="app_mode_settings",
+        name="App Mode Settings",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        icon="mdi:android",
+    ),
     EcoflowSensorDescription(
         key="bat_temp_warn_max",
         name="Battery Temp Warning Max",

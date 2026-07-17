@@ -182,7 +182,7 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                 data["bat_remaining"] = round(
                     self._battery_capacity * data["battery_soc"] / 100, 2
                 )
-                #data["inverter_ac_power"] = float(b[11])  # 40530 – INT16, W ✅
+                data["app_mode_settings"] = float(b[11])  # 40530 – INT16, W ✅
                 data["min_soc_limit"] = float(b[17])  # 40536 – INT16, % ✅
                 data["bat_temp_warn_max"] = float(b[21])  # 40540 – INT16, °C ✅
                 data["ctrl_led_brightness"] = int(b[22])  # 40541 – INT16, % ✅
