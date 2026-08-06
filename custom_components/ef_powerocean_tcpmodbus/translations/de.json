@@ -17,7 +17,7 @@
         "title": "EcoFlow PowerOcean",
         "description": "Einstellungen",
         "data": {
-          "battery_count": "Anzahl installierter Batterie-Module",
+          "battery_module_count": "Anzahl installierter Batterie-Module",
           "solar_power_max": "Maximale Solar-Leistung [W]",
           "grid_power_max": "Maximale Netz-Leistung [W]",
           "scan_interval": "Abfrageintervall [s]",
@@ -87,19 +87,19 @@
 		  "system_modes":{
 			  "name": "Betriebsmodi"
 		  },
-      "battery_count":{
+      	  "battery_module_count":{
 			  "name": "Batterieanzahl"
 		  },
 		  "battery_soc":{
 			  "name": "Batterieladezustand"
 		  },
-      "soc_battery_1":{
+      	  "soc_battery_1":{
 			  "name": "Batterie 1 Ladezustand"
 		  },
-      "soc_battery_2":{
+          "soc_battery_2":{
 			  "name": "Batterie 2 Ladezustand"
 		  },
-      "soc_battery_3":{
+      	  "soc_battery_3":{
 			  "name": "Batterie 3 Ladezustand"
 		  },
 		  "battery_power":{
@@ -126,7 +126,7 @@
 		  "bat_temp_warn_max":{
 			  "name": "Batterie Temp Warnung Max"
 		  },
-		  "device_led_brightness":{
+		  "status_leds_brightness":{
 			  "name": "Helligkeit LED-Geräteanzeige"
 		  },
 		  "solar_power":{
@@ -287,6 +287,9 @@
 		  }
 	  },
     "binary_sensor": {
+      "island_mode": {
+        "name": "Inselbetrieb"
+      },
       "self_use_mode_ena": {
         "name": "Eigenstromversorgung"
       },

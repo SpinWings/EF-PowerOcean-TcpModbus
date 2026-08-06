@@ -76,13 +76,13 @@ class BinarySensorDef:
 MOD_REGISTER_MAP = {
     "serial_number": 40004,
     "blocks": [
-        BlockDef(
-            start_register=40004,
-            num_read_regs=12,
-            content=[
-                RegisterDef(key="operation_mode", block_index=9, size=1),
-            ],
-        ),
+ #       BlockDef(
+ #           start_register=40004,
+ #           num_read_regs=12,
+ #           content=[
+ #               RegisterDef(key="operation_mode", block_index=9, size=1),
+ #           ],
+ #       ),
         BlockDef(
             start_register=40519,
             content=[
@@ -93,10 +93,10 @@ MOD_REGISTER_MAP = {
                 RegisterDef(key="battery_soc", block_index=8, size=1),
                 RegisterDef(key="system_modes", block_index=11, size=1),
                 RegisterDef(key="min_soc_limit", block_index=17, size=1),
-                RegisterDef(key="bat_temp_warn_max", block_index=21, size=1),
-                RegisterDef(key="device_led_brightness", block_index=22, size=1),
-                RegisterDef(key="limit_inv_power", block_index=27, size=1),
-                RegisterDef(key="limit_inv_max", block_index=29, size=1),
+                # RegisterDef(key="bat_temp_warn_max", block_index=21, size=1),
+                RegisterDef(key="status_leds_brightness", block_index=22, size=1),
+                #RegisterDef(key="limit_inv_power", block_index=27, size=1),
+                #RegisterDef(key="limit_inv_max", block_index=29, size=1),
                 RegisterDef(key="battery_capacity", block_index=33, size=1),
                 # 40559-40569: Netz-Seite (Grid)
                 RegisterDef(key="grid_current_l1", block_index=40),
@@ -130,7 +130,7 @@ MOD_REGISTER_MAP = {
             start_register=42081,
             num_read_regs=4,
             content=[
-                RegisterDef(key="battery_count", block_index=0, size=1),
+                RegisterDef(key="battery_module_count", block_index=0, size=1),
                 RegisterDef(key="soc_battery_1", block_index=1, size=1),
                 RegisterDef(key="soc_battery_2", block_index=2, size=1),
                 RegisterDef(key="soc_battery_3", block_index=3, size=1),
@@ -163,13 +163,13 @@ SENSOR_MAP: list[SensorDef] = [
         state_class=None,
         entity_category="diagnostic",
     ),
-    SensorDef(
-        key="operation_mode",
-        unit=None,
-        device_class=None,
-        state_class="measurement",
-        entity_category="diagnostic",
-    ),
+#    SensorDef(
+#        key="operation_mode",
+#        unit=None,
+#        device_class=None,
+#        state_class="measurement",
+#        entity_category="diagnostic",
+#   ),
     SensorDef(
         key="system_modes",
         unit=None,
@@ -212,34 +212,34 @@ SENSOR_MAP: list[SensorDef] = [
         device_class="battery",
         state_class="measurement",
     ),
+    # SensorDef(
+    #     key="bat_temp_warn_max",
+    #     unit="°C",
+    #     device_class="temperature",
+    #     state_class="measurement",
+    #     entity_category="diagnostic",
+    # ),
     SensorDef(
-        key="bat_temp_warn_max",
-        unit="°C",
-        device_class="temperature",
-        state_class="measurement",
-        entity_category="diagnostic",
-    ),
-    SensorDef(
-        key="device_led_brightness",
+        key="status_leds_brightness",
         unit="%",
         device_class=None,
         state_class="measurement",
         entity_category="diagnostic",
     ),
-    SensorDef(
-        key="limit_inv_power",
-        unit="W",
-        device_class="power",
-        state_class="measurement",
-        entity_category="diagnostic",
-    ),
-    SensorDef(
-        key="limit_inv_max",
-        unit="W",
-        device_class="power",
-        state_class="measurement",
-        entity_category="diagnostic",
-    ),
+    # SensorDef(
+    #     key="limit_inv_power",
+    #     unit="W",
+    #     device_class="power",
+    #     state_class="measurement",
+    #     entity_category="diagnostic",
+    # ),
+    # SensorDef(
+    #     key="limit_inv_max",
+    #     unit="W",
+    #     device_class="power",
+    #     state_class="measurement",
+    #     entity_category="diagnostic",
+    # ),
     SensorDef(
         key="limit_charge",
         unit="W",
@@ -478,7 +478,7 @@ SENSOR_MAP: list[SensorDef] = [
         entity_category="diagnostic",
     ),
     SensorDef(
-        key="battery_count",
+        key="battery_module_count",
         unit=None,
         device_class=None,
         state_class="measurement",
@@ -579,6 +579,7 @@ ENERGY_SENSOR_MAP: list[EnergySensorDef] = [
 
 
 BINARY_SENSOR_MAP: list[BinarySensorDef] = [
+    BinarySensorDef("island_mode", "grid"),
     BinarySensorDef("self_use_mode_ena", "battery"),
     BinarySensorDef("intelligent_mode_ena", "battery"),
     BinarySensorDef("battery_saver_mode_ena", "battery"),

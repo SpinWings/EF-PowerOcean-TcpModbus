@@ -322,7 +322,7 @@ class EcoflowCoordinator(DataUpdateCoordinator):
         calc_data: dict[str, Any] = {}
 
         battery_soc = data.get("battery_soc", None)
-        battery_count = data.get("battery_count", None)
+        battery_count = data.get("battery_modulecount", None)
         calc_data["bat_remaining"] = (
             round(battery_count * 5 * battery_soc / 100, 2)
             if battery_soc is not None and battery_count is not None
@@ -456,9 +456,11 @@ class EcoflowCoordinator(DataUpdateCoordinator):
 
         system_mode = data.get("system_modes", None)
         if system_mode is not None:
+            # Bit 0: Inselbetrieb   1= Inselbetrieb, 0 = Netzbetrieb
             # Bit 3: Batteriesparmodus
             # Bit 4: Eigenstromversorgung
             # Bit 5: Intelligenter Modus
+            calc_data["island_mode"] = getBit(int(system_mode), 0)
             calc_data["battery_saver_mode_ena"] = getBit(int(system_mode), 3)
             calc_data["self_use_mode_ena"] = getBit(int(system_mode), 4)
             calc_data["intelligent_mode_ena"] = getBit(int(system_mode), 5)
