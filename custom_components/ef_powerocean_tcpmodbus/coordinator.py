@@ -124,7 +124,7 @@ class EcoflowCoordinator(DataUpdateCoordinator):
         try:
             raw = struct.pack("<HH", regs[register_index], regs[register_index + 1])
             value = struct.unpack("<f", raw)[0]
-        except struct.error, TypeError:  # ab Python 3.14 ist ohne Klammern der Standard
+        except (struct.error, TypeError):  # ohne Klammern erst ab Python 3.14 erlaubt
             return None
 
         if abs(value) > 1e9 or value != value:  # guard against NaN / inf
@@ -224,6 +224,8 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                         raw, register.block_index, register.size
                     )
                     data[register.key] = decode_value
+
+            data["serial_number"] = self.serial_number
 
             if data["battery_count"] != self.limits[CONF_BATTERY_COUNT]:
                 _LOGGER.debug(
@@ -432,6 +434,24 @@ class EcoflowCoordinator(DataUpdateCoordinator):
                 None
                 if pv1_power is None or pv2_power is None or pv3_power is None
                 else pv1_power + pv2_power + pv3_power
+            )
+
+        # Scheinleistung je Phase (S = U * I) und Summe, für Netz- und WR-Seite
+        for side in ("grid", "inverter"):
+            phases = []
+            for phase in (1, 2, 3):
+                voltage = data.get(f"{side}_voltage_l{phase}", None)
+                current = data.get(f"{side}_current_l{phase}", None)
+                apparent_power = (
+                    None
+                    if voltage is None or current is None
+                    else round(voltage * current, 2)
+                )
+                calc_data[f"{side}_apparentpower_l{phase}"] = apparent_power
+                phases.append(apparent_power)
+
+            calc_data[f"{side}_apparentpower"] = (
+                None if any(p is None for p in phases) else round(sum(phases), 2)
             )
 
         system_mode = data.get("system_modes", None)

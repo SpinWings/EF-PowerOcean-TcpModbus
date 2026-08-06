@@ -78,6 +78,12 @@
   },
   "entity":{
 	  "sensor": {
+		  "serial_number":{
+			  "name": "Seriennummer"
+		  },
+		  "operation_mode":{
+			  "name": "Betriebsart"
+		  },
 		  "system_modes":{
 			  "name": "Betriebsmodi"
 		  },
@@ -159,26 +165,68 @@
 		  "grid_power":{
 			  "name": "Netzleistung"
 		  },
-		  "voltage_l1":{
+		  "grid_voltage_l1":{
 			  "name": "Netz Phase L1 Spannung"
 		  },
-		  "voltage_l2":{
+		  "grid_voltage_l2":{
 			  "name": "Netz Phase L2 Spannung"
 		  },
-		  "voltage_l3":{
+		  "grid_voltage_l3":{
 			  "name": "Netz Phase L3 Spannung"
 		  },
-		  "current_l1":{
+		  "grid_current_l1":{
 			  "name": "Netz Phase L1 Strom"
-      },
-		  "current_l2":{
+		  },
+		  "grid_current_l2":{
 			  "name": "Netz Phase L2 Strom"
 		  },
-		  "current_l3":{
+		  "grid_current_l3":{
 			  "name": "Netz Phase L3 Strom"
 		  },
-		  "frequency":{
-			  "name": "Netzfrequenz"
+		  "grid_apparentpower_l1":{
+			  "name": "Netz Phase L1 Scheinleistung"
+		  },
+		  "grid_apparentpower_l2":{
+			  "name": "Netz Phase L2 Scheinleistung"
+		  },
+		  "grid_apparentpower_l3":{
+			  "name": "Netz Phase L3 Scheinleistung"
+		  },
+		  "grid_apparentpower":{
+			  "name": "Netz Scheinleistung"
+		  },
+		  "inverter_voltage_l1":{
+			  "name": "WR Phase L1 Spannung"
+		  },
+		  "inverter_voltage_l2":{
+			  "name": "WR Phase L2 Spannung"
+		  },
+		  "inverter_voltage_l3":{
+			  "name": "WR Phase L3 Spannung"
+		  },
+		  "inverter_current_l1":{
+			  "name": "WR Phase L1 Strom"
+		  },
+		  "inverter_current_l2":{
+			  "name": "WR Phase L2 Strom"
+		  },
+		  "inverter_current_l3":{
+			  "name": "WR Phase L3 Strom"
+		  },
+		  "inverter_apparentpower_l1":{
+			  "name": "WR Phase L1 Scheinleistung"
+		  },
+		  "inverter_apparentpower_l2":{
+			  "name": "WR Phase L2 Scheinleistung"
+		  },
+		  "inverter_apparentpower_l3":{
+			  "name": "WR Phase L3 Scheinleistung"
+		  },
+		  "inverter_apparentpower":{
+			  "name": "WR Scheinleistung"
+		  },
+		  "inverter_frequency":{
+			  "name": "Wechselrichter-Frequenz"
 		  },
 		  "inverter_temperature":{
 			  "name": "Wechselrichter-Temperatur"
@@ -188,6 +236,12 @@
 		  },
 		  "limit_inv_power":{
 			  "name": "WR-Maximalleistung"
+		  },
+		  "limit_charge":{
+			  "name": "Maximale Ladeleistung"
+		  },
+		  "limit_discharge":{
+			  "name": "Maximale Entladeleistung"
 		  },
 		  "house_energy_today":{
 			  "name": "Hausenergie Heute"

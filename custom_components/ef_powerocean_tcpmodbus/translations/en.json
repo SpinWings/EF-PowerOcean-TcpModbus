@@ -78,6 +78,12 @@
   },
   "entity":{
 	  "sensor": {
+		  "serial_number":{
+			  "name": "Serial Number"
+		  },
+		  "operation_mode":{
+			  "name": "Operation Mode"
+		  },
 		  "system_modes":{
 			  "name": "System Modes"
 		  },
@@ -159,26 +165,68 @@
 		  "grid_power":{
 			  "name": "Grid Power"
 		  },
-		  "voltage_l1":{
+		  "grid_voltage_l1":{
 			  "name": "Grid Voltage L1"
 		  },
-		  "voltage_l2":{
+		  "grid_voltage_l2":{
 			  "name": "Grid Voltage L2"
 		  },
-		  "voltage_l3":{
+		  "grid_voltage_l3":{
 			  "name": "Grid Voltage L3"
 		  },
-		  "current_l1":{
+		  "grid_current_l1":{
 			  "name": "Grid Current L1"
 		  },
-		  "current_l2":{
+		  "grid_current_l2":{
 			  "name": "Grid Current L2"
 		  },
-		  "current_l3":{
+		  "grid_current_l3":{
 			  "name": "Grid Current L3"
 		  },
-		  "frequency":{
-			  "name": "Grid Frequency"
+		  "grid_apparentpower_l1":{
+			  "name": "Grid Apparent Power L1"
+		  },
+		  "grid_apparentpower_l2":{
+			  "name": "Grid Apparent Power L2"
+		  },
+		  "grid_apparentpower_l3":{
+			  "name": "Grid Apparent Power L3"
+		  },
+		  "grid_apparentpower":{
+			  "name": "Grid Apparent Power"
+		  },
+		  "inverter_voltage_l1":{
+			  "name": "Inverter Voltage L1"
+		  },
+		  "inverter_voltage_l2":{
+			  "name": "Inverter Voltage L2"
+		  },
+		  "inverter_voltage_l3":{
+			  "name": "Inverter Voltage L3"
+		  },
+		  "inverter_current_l1":{
+			  "name": "Inverter Current L1"
+		  },
+		  "inverter_current_l2":{
+			  "name": "Inverter Current L2"
+		  },
+		  "inverter_current_l3":{
+			  "name": "Inverter Current L3"
+		  },
+		  "inverter_apparentpower_l1":{
+			  "name": "Inverter Apparent Power L1"
+		  },
+		  "inverter_apparentpower_l2":{
+			  "name": "Inverter Apparent Power L2"
+		  },
+		  "inverter_apparentpower_l3":{
+			  "name": "Inverter Apparent Power L3"
+		  },
+		  "inverter_apparentpower":{
+			  "name": "Inverter Apparent Power"
+		  },
+		  "inverter_frequency":{
+			  "name": "Inverter Frequency"
 		  },
 		  "inverter_temperature":{
 			  "name": "Inverter Temperature"
@@ -188,6 +236,12 @@
 		  },
 		  "limit_inv_power":{
 			  "name": "Inverter Current Max Power"
+		  },
+		  "limit_charge":{
+			  "name": "Max Charge Power"
+		  },
+		  "limit_discharge":{
+			  "name": "Max Battery Discharge Power"
 		  },
 		  "house_energy_today":{
 			  "name": "House Consumption Today"

@@ -50,7 +50,7 @@ async def async_validate_connection(host: str, port: int) -> bool:
 class EcoflowConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle the config flow for EF-PowerOcean-TcpModbus."""
 
-    VERSION = 1
+    VERSION = 2
 
     def __init__(self) -> None:
         """Initialize the config flow."""

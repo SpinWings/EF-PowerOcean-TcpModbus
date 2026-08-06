@@ -9,6 +9,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     EntityCategory,
     PERCENTAGE,
+    UnitOfApparentPower,
     UnitOfElectricCurrent,
     UnitOfElectricPotential,
     UnitOfEnergy,
@@ -36,6 +37,7 @@ _LOGGER = logging.getLogger(__name__)
 VALUE_PRECISION = {
     PERCENTAGE: 0,
     UnitOfPower.WATT: 0,
+    UnitOfApparentPower.VOLT_AMPERE: 2,
     UnitOfEnergy.KILO_WATT_HOUR: 2,
     UnitOfTemperature.CELSIUS: 1,
     UnitOfFrequency.HERTZ: 2,
@@ -127,6 +129,9 @@ class EcoflowSensor(CoordinatorEntity[EcoflowCoordinator], RestoreSensor):
                         if precision > 0
                         else int(round(value, 0))
                     )
-                else:
+                elif isinstance(value, (int, float)) and not isinstance(value, bool):
                     return int(value)
+                else:
+                    # z.B. serial_number – nicht numerische Werte unverändert zurückgeben
+                    return value
         return self._last_written_value

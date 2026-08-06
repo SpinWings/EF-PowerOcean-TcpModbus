@@ -7,6 +7,7 @@ import logging
 from homeassistant.const import Platform
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry as er
 
 from .const import DOMAIN
 from .coordinator import EcoflowCoordinator
@@ -17,27 +18,60 @@ PLATFORMS = [
     Platform.BINARY_SENSOR,
     Platform.SENSOR,
 ]
-# CONFIG_VERSION = 2
+CONFIG_VERSION = 2
+
+# Die Register 40580-40594 liegen auf der Wechselrichter-Seite, wurden aber als
+# Netz-Werte benannt. Beim Umbenennen der Keys ändert sich die unique_id, daher
+# werden die bestehenden Entities migriert, damit die Historie erhalten bleibt.
+RENAMED_ENTITY_KEYS = {
+    "voltage_l1": "inverter_voltage_l1",
+    "voltage_l2": "inverter_voltage_l2",
+    "voltage_l3": "inverter_voltage_l3",
+    "current_l1": "inverter_current_l1",
+    "current_l2": "inverter_current_l2",
+    "current_l3": "inverter_current_l3",
+    "frequency": "inverter_frequency",
+}
 
 
-# async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
-#     """Migrate old config entries to current schema."""
+async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+    """Migrate old config entries to current schema."""
 
-#     if config_entry.version < CONFIG_VERSION:
-#         _LOGGER.info(
-#             f"Migrating config entry {config_entry.entry_id} from version {CONFIG_VERSION} to {config_entry.version}."
-#         )
-#         new_data = {**config_entry.data}
-#         hass.config_entries.async_update_entry(
-#             config_entry,
-#             data=new_data,
-#             version=CONFIG_VERSION,
-#         )
-#         _LOGGER.info(
-#             f"Migration of config entry {config_entry.entry_id} to version {CONFIG_VERSION} successful!"
-#         )
+    if config_entry.version >= CONFIG_VERSION:
+        return True
 
-#     return True
+    _LOGGER.info(
+        f"Migrating config entry {config_entry.entry_id} from version {config_entry.version} to {CONFIG_VERSION}."
+    )
+
+    registry = er.async_get(hass)
+    for entry in er.async_entries_for_config_entry(registry, config_entry.entry_id):
+        prefix = f"{config_entry.entry_id}_"
+        if not entry.unique_id.startswith(prefix):
+            continue
+        old_key = entry.unique_id[len(prefix) :]
+        new_key = RENAMED_ENTITY_KEYS.get(old_key)
+        if new_key is None:
+            continue
+
+        new_unique_id = f"{prefix}{new_key}"
+        if registry.async_get_entity_id(entry.domain, DOMAIN, new_unique_id):
+            _LOGGER.warning(
+                f"Can not migrate '{entry.entity_id}' to '{new_key}' – target unique_id already exists."
+            )
+            continue
+
+        _LOGGER.debug(
+            f"Migrating unique_id of '{entry.entity_id}': {old_key} -> {new_key}"
+        )
+        registry.async_update_entity(entry.entity_id, new_unique_id=new_unique_id)
+
+    hass.config_entries.async_update_entry(config_entry, version=CONFIG_VERSION)
+    _LOGGER.info(
+        f"Migration of config entry {config_entry.entry_id} to version {CONFIG_VERSION} successful!"
+    )
+
+    return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
