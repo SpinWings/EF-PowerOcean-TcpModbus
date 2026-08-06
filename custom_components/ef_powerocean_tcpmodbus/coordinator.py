@@ -456,7 +456,7 @@ class EcoflowCoordinator(DataUpdateCoordinator):
 
         system_mode = data.get("system_modes", None)
         if system_mode is not None:
-            # Bit 0: Inselbetrieb   1= Inselbetrieb, 0 = Netzbetrieb
+            # Bit 0: Inselbetrieb   1 = Inselbetrieb, 0 = Netzbetrieb
             # Bit 3: Batteriesparmodus
             # Bit 4: Eigenstromversorgung
             # Bit 5: Intelligenter Modus

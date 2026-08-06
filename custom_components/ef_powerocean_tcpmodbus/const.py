@@ -86,69 +86,69 @@ MOD_REGISTER_MAP = {
         BlockDef(
             start_register=40519,
             content=[
-                RegisterDef(key="house_power", block_index=0),
-                RegisterDef(key="grid_power", block_index=2),
-                RegisterDef(key="solar_power", block_index=4),
-                RegisterDef(key="battery_power", block_index=6),
-                RegisterDef(key="battery_soc", block_index=8, size=1),
-                RegisterDef(key="system_modes", block_index=11, size=1),
-                RegisterDef(key="min_soc_limit", block_index=17, size=1),
+                RegisterDef(key="house_power", block_index=0),                          # 40519 ✅
+                RegisterDef(key="grid_power", block_index=2),                           # 40521 ✅
+                RegisterDef(key="solar_power", block_index=4),                          # 40523 ✅
+                RegisterDef(key="battery_power", block_index=6),                        # 40525 ✅
+                RegisterDef(key="battery_soc", block_index=8, size=1),                  # 40527 ✅
+                RegisterDef(key="system_modes", block_index=11, size=1),                # 40530 ✅
+                RegisterDef(key="min_soc_limit", block_index=17, size=1),               # 40536 ✅  
                 # RegisterDef(key="bat_temp_warn_max", block_index=21, size=1),
-                RegisterDef(key="status_leds_brightness", block_index=22, size=1),
+                RegisterDef(key="status_leds_brightness", block_index=22, size=1),      # 40541 ✅
                 #RegisterDef(key="limit_inv_power", block_index=27, size=1),
                 #RegisterDef(key="limit_inv_max", block_index=29, size=1),
-                RegisterDef(key="battery_capacity", block_index=33, size=1),
+                #RegisterDef(key="battery_capacity", block_index=33, size=1),
                 # 40559-40569: Netz-Seite (Grid)
-                RegisterDef(key="grid_current_l1", block_index=40),
-                RegisterDef(key="grid_current_l2", block_index=42),
-                RegisterDef(key="grid_current_l3", block_index=44),
-                RegisterDef(key="grid_voltage_l1", block_index=46),
-                RegisterDef(key="grid_voltage_l2", block_index=48),
-                RegisterDef(key="grid_voltage_l3", block_index=50),
-                RegisterDef(key="battery_voltage", block_index=55),
-                RegisterDef(key="battery_current", block_index=57),
-                RegisterDef(key="battery_temperature", block_index=59),
+                RegisterDef(key="grid_current_l1", block_index=40),                     # 40559 ✅
+                RegisterDef(key="grid_current_l2", block_index=42),                     # 40561 ✅
+                RegisterDef(key="grid_current_l3", block_index=44),                     # 40563 ✅
+                RegisterDef(key="grid_voltage_l1", block_index=46),                     # 40565 ✅
+                RegisterDef(key="grid_voltage_l2", block_index=48),                     # 40567 ✅
+                RegisterDef(key="grid_voltage_l3", block_index=50),                     # 40569 ✅      
+                RegisterDef(key="battery_voltage", block_index=55),                     # 40574 ✅
+                RegisterDef(key="battery_current", block_index=57),                     # 40576 ✅
+                RegisterDef(key="battery_temperature", block_index=59),                 # 40578 ✅  
                 # 40580-40594 liegen auf der Wechselrichter-Seite, nicht am Netz
-                RegisterDef(key="inverter_voltage_l1", block_index=61),
-                RegisterDef(key="inverter_voltage_l2", block_index=63),
-                RegisterDef(key="inverter_voltage_l3", block_index=65),
-                RegisterDef(key="inverter_current_l1", block_index=67),
-                RegisterDef(key="inverter_current_l2", block_index=69),
-                RegisterDef(key="inverter_current_l3", block_index=71),
-                RegisterDef(key="inverter_temperature", block_index=73),
-                RegisterDef(key="inverter_frequency", block_index=75),
-                RegisterDef(key="pv1_voltage", block_index=77),
-                RegisterDef(key="pv2_voltage", block_index=79),
-                RegisterDef(key="pv3_voltage", block_index=81),
-                RegisterDef(key="pv1_current", block_index=83),
-                RegisterDef(key="pv2_current", block_index=85),
-                RegisterDef(key="pv3_current", block_index=87),
-                RegisterDef(key="feed_in_power_max", block_index=90, size=1),
+                RegisterDef(key="inverter_voltage_l1", block_index=61),                 # 40580 ✅ formerly voltage_l1
+                RegisterDef(key="inverter_voltage_l2", block_index=63),                 # 40582 ✅ formerly voltage_l2
+                RegisterDef(key="inverter_voltage_l3", block_index=65),                 # 40584 ✅ formerly voltage_l3
+                RegisterDef(key="inverter_current_l1", block_index=67),                 # 40586 ✅ formerly current_l1
+                RegisterDef(key="inverter_current_l2", block_index=69),                 # 40588 ✅ formerly current_l2
+                RegisterDef(key="inverter_current_l3", block_index=71),                 # 40590 ✅ formerly current_l3 
+                RegisterDef(key="inverter_temperature", block_index=73),                # 40592 ✅
+                RegisterDef(key="inverter_frequency", block_index=75),                  # 40594 ✅
+                RegisterDef(key="pv1_voltage", block_index=77),                         # 40596 ✅
+                RegisterDef(key="pv2_voltage", block_index=79),                         # 40598 ✅
+                RegisterDef(key="pv3_voltage", block_index=81),                         # 40600 ✅
+                RegisterDef(key="pv1_current", block_index=83),                         # 40602 ✅  
+                RegisterDef(key="pv2_current", block_index=85),                         # 40604 ✅
+                RegisterDef(key="pv3_current", block_index=87),                         # 40606 
+                #RegisterDef(key="feed_in_power_max", block_index=90, size=1),
             ],
         ),
         BlockDef(
             start_register=42081,
             num_read_regs=4,
             content=[
-                RegisterDef(key="battery_module_count", block_index=0, size=1),
-                RegisterDef(key="soc_battery_1", block_index=1, size=1),
-                RegisterDef(key="soc_battery_2", block_index=2, size=1),
-                RegisterDef(key="soc_battery_3", block_index=3, size=1),
+                RegisterDef(key="battery_module_count", block_index=0, size=1),         # 42081 ✅
+                RegisterDef(key="soc_battery_1", block_index=1, size=1),                # 42082 ✅
+                RegisterDef(key="soc_battery_2", block_index=2, size=1),                # 42083 ✅
+                RegisterDef(key="soc_battery_3", block_index=3, size=1),                # 42084 
             ],
         ),
         BlockDef(
             start_register=42161,
             content=[
-                RegisterDef(key="grid_import_total", block_index=0),
-                RegisterDef(key="grid_import_today", block_index=2),
-                RegisterDef(key="grid_export_total", block_index=16),
-                RegisterDef(key="grid_export_today", block_index=18),
-                RegisterDef(key="bat_charged_total", block_index=64),
-                RegisterDef(key="bat_charged_today", block_index=66),
-                RegisterDef(key="bat_discharged_total", block_index=80),
-                RegisterDef(key="bat_discharged_today", block_index=82),
-                RegisterDef(key="solar_total", block_index=96),
-                RegisterDef(key="solar_today", block_index=98),
+                RegisterDef(key="grid_import_total", block_index=0),                    # 42161 ✅  
+                RegisterDef(key="grid_import_today", block_index=2),                    # 42163 ✅
+                RegisterDef(key="grid_export_total", block_index=16),                   # 42177 ✅
+                RegisterDef(key="grid_export_today", block_index=18),                   # 42179 ✅
+                RegisterDef(key="bat_charged_total", block_index=64),                   # 42225 ✅
+                RegisterDef(key="bat_charged_today", block_index=66),                   # 42227 ✅
+                RegisterDef(key="bat_discharged_total", block_index=80),                # 42241 ✅     
+                RegisterDef(key="bat_discharged_today", block_index=82),                # 42243 ✅    
+                RegisterDef(key="solar_total", block_index=96),                         # 42257 ✅
+                RegisterDef(key="solar_today", block_index=98),                         # 42259 ✅
             ],
         ),
     ],
@@ -254,13 +254,13 @@ SENSOR_MAP: list[SensorDef] = [
         state_class="measurement",
         entity_category="diagnostic",
     ),
-    SensorDef(
-        key="battery_capacity",
-        unit="Wh",
-        device_class="storage",
-        state_class="measurement",
-        entity_category="diagnostic",
-    ),
+#    SensorDef(
+#       key="battery_capacity",
+#        unit="Wh",
+#        device_class="storage",
+#        state_class="measurement",
+#        entity_category="diagnostic",
+#    ),
     SensorDef(
         key="battery_voltage",
         unit="V",
@@ -470,13 +470,13 @@ SENSOR_MAP: list[SensorDef] = [
         state_class="measurement",
         entity_category="diagnostic",
     ),
-    SensorDef(
-        key="feed_in_power_max",
-        unit="W",
-        device_class="power",
-        state_class="measurement",
-        entity_category="diagnostic",
-    ),
+    # SensorDef(
+    #     key="feed_in_power_max",
+    #     unit="W",
+    #     device_class="power",
+    #     state_class="measurement",
+    #     entity_category="diagnostic",
+    # ),
     SensorDef(
         key="battery_module_count",
         unit=None,
