@@ -15,12 +15,6 @@
       },
       "min_soc_limit": {
         "default": "mdi:battery-arrow-down"
-      },
-      "limit_charge": {
-        "default": "mdi:battery-arrow-up-outline"
-      },
-      "limit_discharge": {
-        "default": "mdi:battery-arrow-down-outline"
       }
     },
     "binary_sensor": {
