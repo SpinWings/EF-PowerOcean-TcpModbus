@@ -97,7 +97,7 @@ MOD_REGISTER_MAP = {
                 RegisterDef(key="status_leds_brightness", block_index=22, size=1),      # 40541 ✅
                 #RegisterDef(key="limit_inv_power", block_index=27, size=1),
                 #RegisterDef(key="limit_inv_max", block_index=29, size=1),
-                #RegisterDef(key="battery_capacity", block_index=33, size=1),
+                RegisterDef(key="battery_capacity", block_index=33, size=1),            # 40552 ✅ verfiefied for 10kWh and 30kWh Issue #37
                 # 40559-40569: Netz-Seite (Grid)
                 RegisterDef(key="grid_current_l1", block_index=40),                     # 40559 ✅
                 RegisterDef(key="grid_current_l2", block_index=42),                     # 40561 ✅
@@ -254,13 +254,13 @@ SENSOR_MAP: list[SensorDef] = [
         state_class="measurement",
         entity_category="diagnostic",
     ),
-#    SensorDef(
-#       key="battery_capacity",
-#        unit="Wh",
-#        device_class="storage",
-#        state_class="measurement",
-#        entity_category="diagnostic",
-#    ),
+    SensorDef(
+       key="battery_capacity",
+        unit="Wh",
+        device_class="storage",
+        state_class="measurement",
+        entity_category="diagnostic",
+    ),
     SensorDef(
         key="battery_voltage",
         unit="V",
