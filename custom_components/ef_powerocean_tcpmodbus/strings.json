@@ -87,7 +87,7 @@
 		  "system_modes":{
 			  "name": "System Modes"
 		  },
-		"battery_count":{
+		  "battery_module_count":{
 			  "name": "Battery Module Count"
 		  },
 		  "battery_soc":{
@@ -126,8 +126,8 @@
 		  "bat_temp_warn_max":{
 			  "name": "Battery Temp Warning Max"
 		  },
-		  "device_led_brightness":{
-			  "name": "Device LED brightness"
+		  "status_leds_brightness":{
+			  "name": "Status LEDs Brightness"
 		  },
 		  "solar_power":{
 			  "name": "Solar Power"

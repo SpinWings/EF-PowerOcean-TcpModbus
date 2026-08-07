@@ -31,6 +31,9 @@ RENAMED_ENTITY_KEYS = {
     "current_l2": "inverter_current_l2",
     "current_l3": "inverter_current_l3",
     "frequency": "inverter_frequency",
+    # Praezisere Bezeichnungen
+    "battery_count": "battery_module_count",
+    "device_led_brightness": "status_leds_brightness",
 }
 
 

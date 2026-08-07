@@ -1,0 +1,45 @@
+{
+  "entity": {
+    "sensor": {
+      "serial_number": {
+        "default": "mdi:identifier"
+      },
+      "system_modes": {
+        "default": "mdi:state-machine"
+      },
+      "battery_module_count": {
+        "default": "mdi:battery-check-outline"
+      },
+      "status_leds_brightness": {
+        "default": "mdi:brightness-percent"
+      },
+      "min_soc_limit": {
+        "default": "mdi:battery-arrow-down"
+      },
+      "limit_charge": {
+        "default": "mdi:battery-arrow-up-outline"
+      },
+      "limit_discharge": {
+        "default": "mdi:battery-arrow-down-outline"
+      }
+    },
+    "binary_sensor": {
+      "island_mode": {
+        "default": "mdi:transmission-tower-off",
+        "state": {
+          "on": "mdi:transmission-tower-off",
+          "off": "mdi:transmission-tower"
+        }
+      },
+      "self_use_mode_ena": {
+        "default": "mdi:home-lightning-bolt-outline"
+      },
+      "intelligent_mode_ena": {
+        "default": "mdi:head-cog-outline"
+      },
+      "battery_saver_mode_ena": {
+        "default": "mdi:battery-heart-outline"
+      }
+    }
+  }
+}

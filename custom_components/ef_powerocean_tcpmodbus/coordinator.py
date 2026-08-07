@@ -227,9 +227,9 @@ class EcoflowCoordinator(DataUpdateCoordinator):
 
             data["serial_number"] = self.serial_number
 
-            if data["battery_count"] != self.limits[CONF_BATTERY_COUNT]:
+            if data["battery_module_count"] != self.limits[CONF_BATTERY_COUNT]:
                 _LOGGER.debug(
-                    f"Readed battery count {data['battery_count']} is unequal -> Skip data! Wait {SLEEP_TIME_AFTER_BATTERY_CHECK_FAILED}s."
+                    f"Readed battery count {data['battery_module_count']} is unequal -> Skip data! Wait {SLEEP_TIME_AFTER_BATTERY_CHECK_FAILED}s."
                 )
                 await asyncio.sleep(SLEEP_TIME_AFTER_BATTERY_CHECK_FAILED)
                 return None
@@ -322,7 +322,7 @@ class EcoflowCoordinator(DataUpdateCoordinator):
         calc_data: dict[str, Any] = {}
 
         battery_soc = data.get("battery_soc", None)
-        battery_count = data.get("battery_modulecount", None)
+        battery_count = data.get("battery_module_count", None)
         calc_data["bat_remaining"] = (
             round(battery_count * 5 * battery_soc / 100, 2)
             if battery_soc is not None and battery_count is not None

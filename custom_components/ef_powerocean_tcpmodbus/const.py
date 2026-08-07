@@ -579,7 +579,7 @@ ENERGY_SENSOR_MAP: list[EnergySensorDef] = [
 
 
 BINARY_SENSOR_MAP: list[BinarySensorDef] = [
-    BinarySensorDef("island_mode", "grid"),
+    BinarySensorDef("island_mode", "grid"), # zeigt an, ob das Gerät im Inselbetrieb ist (True) oder im Netzbetrieb (False)
     BinarySensorDef("self_use_mode_ena", "battery"),
     BinarySensorDef("intelligent_mode_ena", "battery"),
     BinarySensorDef("battery_saver_mode_ena", "battery"),
