@@ -173,7 +173,7 @@
       "grid_power": {
         "name": "Netzleistung"
       },
-      "voltage_l1": {
+      "grid_voltage_l1": {
         "name": "Netz Phase L1 Spannung"
       },
       "grid_voltage_l2": {
@@ -191,7 +191,19 @@
       "grid_ current_l3": {
         "name": "Netz Phase L3 Strom"
       },
- 		  "inverter_voltage_l1":{
+ 		  "grid_apparentpower_l1":{
+			  "name": "Netz Phase L1 Scheinleistung"
+		  },
+		  "grid_apparentpower_l2":{
+			  "name": "Netz Phase L2 Scheinleistung"
+		  },
+		  "grid_apparentpower_l3":{
+			  "name": "Netz Phase L3 Scheinleistung"
+		  },
+		  "grid_apparentpower":{
+			  "name": "Netz Scheinleistung"
+		  },
+		  "inverter_voltage_l1":{
 			  "name": "WR Phase L1 Spannung"
 		  },
 		  "inverter_voltage_l2":{
