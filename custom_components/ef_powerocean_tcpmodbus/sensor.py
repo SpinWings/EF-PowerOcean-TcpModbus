@@ -10,6 +10,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     EntityCategory,
     PERCENTAGE,
+    UnitOfApparentPower,
     UnitOfElectricCurrent,
     UnitOfElectricPotential,
     UnitOfEnergy,
@@ -37,6 +38,7 @@ _LOGGER = logging.getLogger(__name__)
 VALUE_PRECISION: Final = {
     PERCENTAGE: 0,
     UnitOfPower.WATT: 0,
+    UnitOfApparentPower.VOLT_AMPERE: 2,
     UnitOfEnergy.KILO_WATT_HOUR: 2,
     UnitOfTemperature.CELSIUS: 1,
     UnitOfFrequency.HERTZ: 2,

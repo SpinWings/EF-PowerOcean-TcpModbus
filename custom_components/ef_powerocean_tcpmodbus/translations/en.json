@@ -248,6 +248,9 @@
       }
     },
     "binary_sensor": {
+      "island_mode": {
+        "name": "Island Mode"
+      },
       "self_use_mode_ena": {
         "name": "Self-powered Mode"
       },

@@ -203,9 +203,26 @@ def calculate_derived_values(
         )
 
     if data.system_modes is not None:
+        calculated["island_mode"] = _is_bit_set(int(data.system_modes), 0)
         calculated["battery_saver_mode_ena"] = _is_bit_set(int(data.system_modes), 3)
         calculated["self_use_mode_ena"] = _is_bit_set(int(data.system_modes), 4)
         calculated["intelligent_mode_ena"] = _is_bit_set(int(data.system_modes), 5)
 
-    return calculated
+    # Scheinleistung je Phase (S = U * I) und Summe, für Netz- und WR-Seite
+    for side in ("grid", "inverter"):
+        phases = []
+        for phase in (1, 2, 3):
+            voltage = data.get(f"{side}_voltage_l{phase}", None)
+            current = data.get(f"{side}_current_l{phase}", None)
+            apparent_power = (
+                None
+                if voltage is None or current is None
+                else round(voltage * current, 2)
+            )
+            calculated[f"{side}_apparentpower_l{phase}"] = apparent_power
+            phases.append(apparent_power)
+        calculated[f"{side}_apparentpower"] = (
+            None if any(p is None for p in phases) else round(sum(phases), 2)
+        )
 
+    return calculated

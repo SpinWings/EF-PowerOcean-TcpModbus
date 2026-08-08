@@ -132,17 +132,25 @@ MOD_REGISTER_MAP = {
                 RegisterDef(key="limit_inv_power", block_index=27, size=1),
                 RegisterDef(key="limit_inv_max", block_index=29, size=1),
                 RegisterDef(key="battery_capacity", block_index=33, size=1),
+                 # 40559-40569: Netz (Grid)
+                RegisterDef(key="grid_current_l1", block_index=40),
+                RegisterDef(key="grid_current_l2", block_index=42),
+                RegisterDef(key="grid_current_l3", block_index=44),
+                RegisterDef(key="grid_voltage_l1", block_index=46),
+                RegisterDef(key="grid_voltage_l2", block_index=48),
+                RegisterDef(key="grid_voltage_l3", block_index=50), 
                 RegisterDef(key="battery_voltage", block_index=55),
                 RegisterDef(key="battery_current", block_index=57),
                 RegisterDef(key="battery_temperature", block_index=59),
-                RegisterDef(key="voltage_l1", block_index=61),
-                RegisterDef(key="voltage_l2", block_index=63),
-                RegisterDef(key="voltage_l3", block_index=65),
-                RegisterDef(key="current_l1", block_index=67),
-                RegisterDef(key="current_l2", block_index=69),
-                RegisterDef(key="current_l3", block_index=71),
+                # 40580-40594: Wechselrichter (Inverter)
+                RegisterDef(key="inverter_voltage_l1", block_index=61),                 # formerly voltage_l1
+                RegisterDef(key="inverter_voltage_l2", block_index=63),                 # formerly voltage_l2
+                RegisterDef(key="inverter_voltage_l3", block_index=65),                 # formerly voltage_l3
+                RegisterDef(key="inverter_current_l1", block_index=67),                 # formerly current_l1
+                RegisterDef(key="inverter_current_l2", block_index=69),                 # formerly current_l2
+                RegisterDef(key="inverter_current_l3", block_index=71),                 # formerly current_l3 
                 RegisterDef(key="inverter_temperature", block_index=73),
-                RegisterDef(key="frequency", block_index=75),
+                RegisterDef(key="inverter_frequency", block_index=75),                  # formerly frequency 
                 RegisterDef(key="pv1_voltage", block_index=77),
                 RegisterDef(key="pv2_voltage", block_index=79),
                 RegisterDef(key="pv3_voltage", block_index=81),
@@ -281,46 +289,136 @@ SENSOR_MAP: list[SensorDef] = [
         entity_category="diagnostic",
     ),
     SensorDef(
-        key="voltage_l1",
+        key="grid_voltage_l1",
         unit="V",
         device_class="voltage",
         state_class="measurement",
         entity_category="diagnostic",
     ),
     SensorDef(
-        key="voltage_l2",
+        key="grid_voltage_l2",
         unit="V",
         device_class="voltage",
         state_class="measurement",
         entity_category="diagnostic",
     ),
     SensorDef(
-        key="voltage_l3",
+        key="grid_voltage_l3",
         unit="V",
         device_class="voltage",
         state_class="measurement",
         entity_category="diagnostic",
     ),
     SensorDef(
-        key="current_l1",
+        key="grid_current_l1",
         unit="A",
         device_class="current",
         state_class="measurement",
         entity_category="diagnostic",
     ),
     SensorDef(
-        key="current_l2",
+        key="grid_current_l2",
         unit="A",
         device_class="current",
         state_class="measurement",
         entity_category="diagnostic",
     ),
     SensorDef(
-        key="current_l3",
+        key="grid_current_l3",
         unit="A",
         device_class="current",
         state_class="measurement",
         entity_category="diagnostic",
+    ),
+    SensorDef(
+        key="grid_apparentpower_l1",
+        unit="VA",
+        device_class="apparent_power",
+        state_class="measurement",
+    ),
+    SensorDef(
+        key="grid_apparentpower_l2",
+        unit="VA",
+        device_class="apparent_power",
+        state_class="measurement",
+    ),
+    SensorDef(
+        key="grid_apparentpower_l3",
+        unit="VA",
+        device_class="apparent_power",
+        state_class="measurement",
+    ),
+    SensorDef(
+        key="grid_apparentpower",
+        unit="VA",
+        device_class="apparent_power",
+        state_class="measurement",
+    ),
+    SensorDef(
+        key="inverter_voltage_l1",      # formerly voltage_l1
+        unit="V",
+        device_class="voltage",
+        state_class="measurement",
+        entity_category="diagnostic",
+    ),
+    SensorDef(
+        key="inverter_voltage_l2",      # formerly voltage_l2       
+        unit="V",
+        device_class="voltage",
+        state_class="measurement",
+        entity_category="diagnostic",
+    ),
+    SensorDef(
+        key="inverter_voltage_l3",      # formerly voltage_l3
+        unit="V",
+        device_class="voltage",
+        state_class="measurement",
+        entity_category="diagnostic",
+    ),
+    SensorDef(
+        key="inverter_current_l1",      # formerly current_l1
+        unit="A",
+        device_class="current",
+        state_class="measurement",
+        entity_category="diagnostic",
+    ),
+    SensorDef(
+        key="inverter_current_l2",      # formerly current_l2
+        unit="A",
+        device_class="current",
+        state_class="measurement",
+        entity_category="diagnostic",
+    ),
+    SensorDef(
+        key="inverter_current_l3",      # formerly current_l3
+        unit="A",
+        device_class="current",
+        state_class="measurement",
+        entity_category="diagnostic",
+    ),
+    SensorDef(
+        key="inverter_apparentpower_l1",
+        unit="VA",
+        device_class="apparent_power",
+        state_class="measurement",
+    ),
+    SensorDef(
+        key="inverter_apparentpower_l2",
+        unit="VA",
+        device_class="apparent_power",
+        state_class="measurement",
+    ),
+    SensorDef(
+        key="inverter_apparentpower_l3",
+        unit="VA",
+        device_class="apparent_power",
+        state_class="measurement",
+    ),
+    SensorDef(
+        key="inverter_apparentpower",
+        unit="VA",
+        device_class="apparent_power",
+        state_class="measurement",
     ),
     SensorDef(
         key="inverter_temperature",
@@ -330,7 +428,7 @@ SENSOR_MAP: list[SensorDef] = [
         entity_category="diagnostic",
     ),
     SensorDef(
-        key="frequency",
+        key="inverter_frequency",       # formerly frequency
         unit="Hz",
         device_class="frequency",
         state_class="measurement",
@@ -487,6 +585,7 @@ ENERGY_SENSOR_MAP: list[EnergySensorDef] = [
 
 
 BINARY_SENSOR_MAP: list[BinarySensorDef] = [
+    BinarySensorDef("island_mode", "grid"),             # 0: Grid Mode (Grid connected), 1: Island Mode (Grid disconnected
     BinarySensorDef("self_use_mode_ena", "battery"),
     BinarySensorDef("intelligent_mode_ena", "battery"),
     BinarySensorDef("battery_saver_mode_ena", "battery"),

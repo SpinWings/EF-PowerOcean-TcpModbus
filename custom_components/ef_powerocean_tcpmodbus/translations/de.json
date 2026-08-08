@@ -176,32 +176,62 @@
       "voltage_l1": {
         "name": "Netz Phase L1 Spannung"
       },
-      "voltage_l2": {
+      "grid_voltage_l2": {
         "name": "Netz Phase L2 Spannung"
       },
-      "voltage_l3": {
+      "grid_voltage_l3": {
         "name": "Netz Phase L3 Spannung"
       },
-      "current_l1": {
+      "grid_current_l1": {
         "name": "Netz Phase L1 Strom"
       },
-      "current_l2": {
+      "grid_current_l2": {
         "name": "Netz Phase L2 Strom"
       },
-      "current_l3": {
+      "grid_ current_l3": {
         "name": "Netz Phase L3 Strom"
       },
-      "frequency": {
-        "name": "Netzfrequenz"
+ 		  "inverter_voltage_l1":{
+			  "name": "WR Phase L1 Spannung"
+		  },
+		  "inverter_voltage_l2":{
+			  "name": " Phase L2 Spannung"
+		  },
+		  "inverter_voltage_l3":{
+			  "name": " Phase L3 Spannung"
+		  },
+		  "inverter_current_l1":{
+			  "name": " Phase L1 Strom"
+		  },
+		  "inverter_current_l2":{
+			  "name": "WR Phase L2 Strom"
+		  },
+		  "inverter_current_l3":{
+			  "name": " Phase L3 Strom"
+		  },
+		  "inverter_apparentpower_l1":{
+			  "name": "WR Phase L1 Scheinleistung"
+		  },
+		  "inverter_apparentpower_l2":{
+			  "name": " Phase L2 Scheinleistung"
+		  },
+		  "inverter_apparentpower_l3":{
+			  "name": "WR Phase L3 Scheinleistung"
+		  },
+		  "inverter_apparentpower":{
+			  "name": "WR Scheinleistung"
+		  },
+     "inverter_frequency": {
+        "name": "WR Frequenz"
       },
       "inverter_temperature": {
-        "name": "Wechselrichter-Temperatur"
+        "name": "WR Temperatur"
       },
       "limit_inv_max": {
-        "name": "WR-Nennleistungsgrenze"
+        "name": "WR Nennleistungsgrenze"
       },
       "limit_inv_power": {
-        "name": "WR-Maximalleistung"
+        "name": "WR Maximalleistung"
       },
       "house_energy_today": {
         "name": "Hausenergie Heute"
@@ -247,6 +277,9 @@
       }
     },
     "binary_sensor": {
+     "island_mode": {
+        "name": "Inselbetrieb"
+      },
       "self_use_mode_ena": {
         "name": "Eigenstromversorgung"
       },
