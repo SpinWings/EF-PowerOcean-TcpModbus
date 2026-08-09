@@ -31,6 +31,18 @@ class TelemetryData:
     pv3_current: float | None = None
     pv3_voltage: float | None = None
     system_modes: float | None = None
+    grid_voltage_l1: float | None = None
+    grid_voltage_l2: float | None = None
+    grid_voltage_l3: float | None = None
+    grid_current_l1: float | None = None
+    grid_current_l2: float | None = None
+    grid_current_l3: float | None = None
+    inverter_voltage_l1: float | None = None
+    inverter_voltage_l2: float | None = None
+    inverter_voltage_l3: float | None = None
+    inverter_current_l1: float | None = None
+    inverter_current_l2: float | None = None
+    inverter_current_l3: float | None = None
 
     @classmethod
     def from_mapping(
@@ -57,6 +69,18 @@ class TelemetryData:
             pv3_current=data.get("pv3_current"),
             pv3_voltage=data.get("pv3_voltage"),
             system_modes=data.get("system_modes"),
+            grid_voltage_l1=data.get("grid_voltage_l1"),
+            grid_voltage_l2=data.get("grid_voltage_l2"),
+            grid_voltage_l3=data.get("grid_voltage_l3"),
+            grid_current_l1=data.get("grid_current_l1"),
+            grid_current_l2=data.get("grid_current_l2"),
+            grid_current_l3=data.get("grid_current_l3"),
+            inverter_voltage_l1=data.get("inverter_voltage_l1"),
+            inverter_voltage_l2=data.get("inverter_voltage_l2"),
+            inverter_voltage_l3=data.get("inverter_voltage_l3"),
+            inverter_current_l1=data.get("inverter_current_l1"),
+            inverter_current_l2=data.get("inverter_current_l2"),
+            inverter_current_l3=data.get("inverter_current_l3"),
         )
 
 
@@ -212,8 +236,8 @@ def calculate_derived_values(
     for side in ("grid", "inverter"):
         phases = []
         for phase in (1, 2, 3):
-            voltage = data.get(f"{side}_voltage_l{phase}", None)
-            current = data.get(f"{side}_current_l{phase}", None)
+            voltage = getattr(data, f"{side}_voltage_l{phase}")
+            current = getattr(data, f"{side}_current_l{phase}")
             apparent_power = (
                 None
                 if voltage is None or current is None

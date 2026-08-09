@@ -99,13 +99,13 @@ class EcoflowCoordinator(DataUpdateCoordinator):
         self._client_slave_id = DEFAULT_SLAVE
         self._lock = asyncio.Lock()
         self._last_checked_data: dict[str, Any] = {}
-        self._last_checked_time: datetime = None
+        self._last_checked_time: datetime | None = None
         self._check_monotonic: bool = True
-        self._count_reset_energy_sensor: int = 0
-        for sensor in ENERGY_SENSOR_MAP:
-            if sensor.reset_at_midnight:
-                self._count_reset_energy_sensor += 1
-        self._count_reset_energy_finished: int = self._count_reset_energy_sensor
+        self._daily_reset_keys: frozenset[str] = frozenset(
+            sensor.key for sensor in ENERGY_SENSOR_MAP if sensor.reset_at_midnight
+        )
+        # Tageszähler, die nach dem letzten Mitternachtswechsel noch auf 0 fallen müssen
+        self._pending_daily_resets: set[str] = set()
 
 
     def get_pymodbus_version(self) -> str:
@@ -228,6 +228,19 @@ class EcoflowCoordinator(DataUpdateCoordinator):
             _LOGGER.debug("Last checked time or last checked data is None. Return current data.")
             return result
 
+        if now.date() != self._last_checked_time.date():
+            # Mitternacht überschritten: nur Tageszähler, die gestern einen Wert
+            # hatten, müssen noch auf 0 fallen. Zähler, die ohnehin schon 0 sind
+            # (z. B. solar_today nachts), lösen kein Reset-Ereignis aus und dürfen
+            # den Tagesabschluss deshalb nicht blockieren.
+            self._pending_daily_resets = {
+                key
+                for key in self._daily_reset_keys
+                if (self._last_checked_data.get(key) or 0) > 0
+            }
+            if self._pending_daily_resets:
+                _LOGGER.debug(f"Waiting for daily reset of {self._pending_daily_resets}")
+
         elapsed_seconds = (now - self._last_checked_time).total_seconds()
         if elapsed_seconds < 1:
             _LOGGER.debug(
@@ -258,12 +271,9 @@ class EcoflowCoordinator(DataUpdateCoordinator):
             if is_midnight_reset:
                 # Reset nur zwischen 00:00 und 00:01 erlauben
                 _LOGGER.debug(f"Reset of entity {energy_sensor.key}")
-                if self._count_reset_energy_finished == self._count_reset_energy_sensor:
-                    # first counter reset after midnight
-                    self._count_reset_energy_finished = 0
                 result[energy_sensor.key] = 0
                 self._check_monotonic = False
-                self._count_reset_energy_finished += 1
+                self._pending_daily_resets.discard(energy_sensor.key)
                 continue
 
             energy_delta = current_energy - last_energy
@@ -289,6 +299,8 @@ class EcoflowCoordinator(DataUpdateCoordinator):
 
             # Rückgabe des aktuellen Wertes nur wenn der neue Wert > letzter Wert ist
             result[energy_sensor.key] = max(current_energy, last_energy)
+            if energy_sensor.reset_at_midnight and result[energy_sensor.key] == 0:
+                self._pending_daily_resets.discard(energy_sensor.key)
 
         return result
 
@@ -310,9 +322,7 @@ class EcoflowCoordinator(DataUpdateCoordinator):
             calculated_results = calculate_derived_values(
                 TelemetryData.from_mapping(result),
                 calculate_solar_power=self._ena_calc_solar_power,
-                daily_reset_complete=(
-                    self._count_reset_energy_finished == self._count_reset_energy_sensor
-                ),
+                daily_reset_complete=not self._pending_daily_resets,
                 startup_voltage = self.inverter_model.startup_voltage,
                 max_battery_charge_power=MAX_BATTERY_CHARGED_POWER,
                 max_battery_discharge_power=MAX_BATTERY_DISCHARGED_POWER,

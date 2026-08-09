@@ -263,7 +263,7 @@ SENSOR_MAP: list[SensorDef] = [
     SensorDef(
         key="battery_capacity",
         unit="Wh",
-        device_class="storage",
+        device_class="energy_storage",
         state_class="measurement",
         entity_category="diagnostic",
     ),
@@ -585,8 +585,8 @@ ENERGY_SENSOR_MAP: list[EnergySensorDef] = [
 
 
 BINARY_SENSOR_MAP: list[BinarySensorDef] = [
-    BinarySensorDef("island_mode", "grid"),             # 0: Grid Mode (Grid connected), 1: Island Mode (Grid disconnected
-    BinarySensorDef("self_use_mode_ena", "battery"),
-    BinarySensorDef("intelligent_mode_ena", "battery"),
-    BinarySensorDef("battery_saver_mode_ena", "battery"),
+    BinarySensorDef("island_mode", "plug"),             # 0: Grid Mode (Grid connected), 1: Island Mode (Grid disconnected
+    BinarySensorDef("self_use_mode_ena", "running"),
+    BinarySensorDef("intelligent_mode_ena", "running"),
+    BinarySensorDef("battery_saver_mode_ena", "running"),
 ]

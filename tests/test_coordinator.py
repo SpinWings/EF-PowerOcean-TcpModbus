@@ -20,8 +20,10 @@ def coordinator():
     instance._last_checked_data = {}
     instance._last_checked_time = None
     instance._check_monotonic = True
-    instance._count_reset_energy_sensor = 5
-    instance._count_reset_energy_finished = 5
+    instance._daily_reset_keys = frozenset(
+        sensor.key for sensor in const.ENERGY_SENSOR_MAP if sensor.reset_at_midnight
+    )
+    instance._pending_daily_resets = set()
     instance.limits = {
         const.CONF_MAX_GRID_POWER: 15_000,
         const.CONF_MAX_SOLAR_POWER: 12_000,
@@ -154,7 +156,46 @@ def test_accepts_daily_reset_during_midnight_window(
 
     assert result["grid_import_today"] == 0.0
     assert coordinator._check_monotonic is False
-    assert coordinator._count_reset_energy_finished == 1
+    assert coordinator._pending_daily_resets == set()
+
+
+def test_daily_counters_already_at_zero_do_not_block_the_daily_balance(
+    coordinator, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """solar_today is already 0 at midnight, so it never emits a reset event."""
+    now = datetime(2026, 8, 8, 0, 0, 30, tzinfo=timezone.utc)
+    coordinator._last_checked_time = now - timedelta(minutes=1)
+    coordinator._last_checked_data = {"grid_import_today": 10.0, "solar_today": 0.0}
+
+    sanitize(
+        coordinator, {"grid_import_today": 0.0, "solar_today": 0.0}, now, monkeypatch
+    )
+
+    assert coordinator._pending_daily_resets == set()
+
+
+def test_daily_balance_waits_for_a_counter_that_has_not_reset_yet(
+    coordinator, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    now = datetime(2026, 8, 8, 0, 0, 30, tzinfo=timezone.utc)
+    coordinator._last_checked_time = now - timedelta(minutes=1)
+    coordinator._last_checked_data = {"grid_import_today": 10.0, "solar_today": 20.0}
+
+    sanitize(
+        coordinator, {"grid_import_today": 0.0, "solar_today": 20.0}, now, monkeypatch
+    )
+
+    assert coordinator._pending_daily_resets == {"solar_today"}
+
+    later = now + timedelta(seconds=5)
+    coordinator._last_checked_time = now
+    coordinator._last_checked_data = {"grid_import_today": 0.0, "solar_today": 20.0}
+
+    sanitize(
+        coordinator, {"grid_import_today": 0.0, "solar_today": 0.0}, later, monkeypatch
+    )
+
+    assert coordinator._pending_daily_resets == set()
 
 
 @pytest.mark.parametrize(

@@ -86,7 +86,8 @@
         "powerocean_single_phase": "PowerOcean 1-phasig",
         "powerocean_three_phase": "PowerOcean 3-phasig",
         "powerocean_plus": "PowerOcean Plus",
-        "ocean_2": "Ocean 2"
+        "powerocean_dc_fit": "PowerOcean DC Fit",
+         "ocean_2": "Ocean 2"
       }
     }
   },
@@ -188,7 +189,7 @@
       "grid_current_l2": {
         "name": "Netz Phase L2 Strom"
       },
-      "grid_ current_l3": {
+      "grid_current_l3": {
         "name": "Netz Phase L3 Strom"
       },
  		  "grid_apparentpower_l1":{

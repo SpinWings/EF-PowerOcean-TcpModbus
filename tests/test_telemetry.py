@@ -79,6 +79,18 @@ class CalculateValuesTest(unittest.TestCase):
             "pv3_current": 3.0,
             "pv3_voltage": 250.0,
             "system_modes": 0b101000,
+            "grid_voltage_l1": 230.0,
+            "grid_voltage_l2": 231.0,
+            "grid_voltage_l3": 232.0,
+            "grid_current_l1": 1.0,
+            "grid_current_l2": 2.0,
+            "grid_current_l3": 3.0,
+            "inverter_voltage_l1": 240.0,
+            "inverter_voltage_l2": 241.0,
+            "inverter_voltage_l3": 242.0,
+            "inverter_current_l1": 4.0,
+            "inverter_current_l2": 5.0,
+            "inverter_current_l3": 6.0,
         }
 
     def calculate(
@@ -113,6 +125,28 @@ class CalculateValuesTest(unittest.TestCase):
         self.assertEqual(result["pv2_power"], 0)
         self.assertEqual(result["pv3_power"], 750.0)
         self.assertEqual(result["solar_power"], 2250.0)
+
+    def test_calculates_apparent_power_per_phase_and_sum(self) -> None:
+        result = self.calculate()
+
+        self.assertEqual(result["grid_apparentpower_l1"], 230.0)
+        self.assertEqual(result["grid_apparentpower_l2"], 462.0)
+        self.assertEqual(result["grid_apparentpower_l3"], 696.0)
+        self.assertEqual(result["grid_apparentpower"], 1388.0)
+        self.assertEqual(result["inverter_apparentpower_l1"], 960.0)
+        self.assertEqual(result["inverter_apparentpower_l2"], 1205.0)
+        self.assertEqual(result["inverter_apparentpower_l3"], 1452.0)
+        self.assertEqual(result["inverter_apparentpower"], 3617.0)
+
+    def test_apparent_power_is_none_when_a_phase_reading_is_missing(self) -> None:
+        del self.data["grid_current_l2"]
+
+        result = self.calculate()
+
+        self.assertIsNone(result["grid_apparentpower_l2"])
+        self.assertIsNone(result["grid_apparentpower"])
+        self.assertEqual(result["grid_apparentpower_l1"], 230.0)
+        self.assertEqual(result["inverter_apparentpower"], 3617.0)
 
     def test_decodes_system_mode_bits(self) -> None:
         result = self.calculate()
